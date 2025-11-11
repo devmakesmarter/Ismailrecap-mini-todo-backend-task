@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -119,8 +120,10 @@ class TodoControllerTest {
     void getByIdTest_whenInvalidId_thenStatus404() throws Exception {
         //GIVEN
         //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/6"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().string("Todo with id: 6 not found!"));
 
-        assertThrows(ServletException.class, () -> mockMvc.perform(get("/api/todo/1")));
 
     }
 

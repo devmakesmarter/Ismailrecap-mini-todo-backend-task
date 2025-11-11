@@ -1,5 +1,7 @@
 package de.neuefische.todobackend.todo;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import de.neuefische.todobackend.ExceptionHandler.InvalidInputException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +27,10 @@ public class TodoService {
 
         Todo todoToSave = new Todo(id, newTodo.description(), newTodo.status());
 
+        if(newTodo.description() == null || newTodo.status() == null){
+            throw new InvalidInputException("Einer der Werte ist null");
+        }
+
         return todoRepository.save(todoToSave);
     }
 
@@ -32,6 +38,7 @@ public class TodoService {
         Todo todoToUpdate = new Todo(id, todo.description(), todo.status());
 
         return todoRepository.save(todoToUpdate);
+
     }
 
     public Todo findTodoById(String id) {
