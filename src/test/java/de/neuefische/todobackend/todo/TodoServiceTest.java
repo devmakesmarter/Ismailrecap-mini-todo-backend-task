@@ -1,5 +1,6 @@
 package de.neuefische.todobackend.todo;
 
+import de.neuefische.todobackend.OpenAiChatGpt.OpenAiService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -13,7 +14,8 @@ class TodoServiceTest {
 
     TodoRepository todoRepository = mock(TodoRepository.class);
     IdService idService = mock(IdService.class);
-    TodoService todoService = new TodoService(todoRepository, idService);
+    OpenAiService openAiService = mock(OpenAiService.class);
+    TodoService todoService = new TodoService(todoRepository, idService, openAiService);
 
     @Test
     void findAllTodos() {
